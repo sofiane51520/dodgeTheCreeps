@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://orcl5hh50tsw"]
+[gd_scene load_steps=5 format=3 uid="uid://orcl5hh50tsw"]
 
 [ext_resource type="Script" path="res://HUD.gd" id="1_3v315"]
-[ext_resource type="FontFile" uid="uid://c1nsbg2xaf4j5" path="res://fonts/Xolonium-Regular.ttf" id="2_p2185"]
+[ext_resource type="FontFile" uid="uid://duxubhyx4lbvm" path="res://fonts/upheavtt.ttf" id="2_8aslh"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ki65c"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_x6nly"]
+events = [SubResource("InputEventAction_ki65c")]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_3v315")
@@ -14,9 +20,10 @@ offset_left = -45.0
 offset_right = 45.0
 offset_bottom = 81.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_p2185")
+theme_override_fonts/font = ExtResource("2_8aslh")
 theme_override_font_sizes/font_size = 64
 text = "10"
+horizontal_alignment = 1
 
 [node name="Message" type="Label" parent="."]
 anchors_preset = 8
@@ -30,7 +37,7 @@ offset_right = 225.0
 offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_p2185")
+theme_override_fonts/font = ExtResource("2_8aslh")
 theme_override_font_sizes/font_size = 64
 text = "Dodge the creeps!"
 horizontal_alignment = 1
@@ -51,8 +58,10 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 6
-theme_override_fonts/font = ExtResource("2_p2185")
+tooltip_text = "Start the game"
+theme_override_fonts/font = ExtResource("2_8aslh")
 theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_x6nly")
 text = "Start"
 
 [node name="MessageTimer" type="Timer" parent="."]

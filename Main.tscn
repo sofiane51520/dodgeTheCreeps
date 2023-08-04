@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://oqnahblfjnxx"]
+[gd_scene load_steps=8 format=3 uid="uid://oqnahblfjnxx"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_hf08v"]
 [ext_resource type="PackedScene" uid="uid://cxbg480pnp15o" path="res://Mob.tscn" id="2_knmcr"]
 [ext_resource type="PackedScene" uid="uid://cxh1ndgy6w4g4" path="res://Player.tscn" id="3_00ikv"]
 [ext_resource type="PackedScene" uid="uid://orcl5hh50tsw" path="res://HUD.tscn" id="4_otfsv"]
+[ext_resource type="AudioStream" uid="uid://ddrp1y40dbae6" path="res://art/House In a Forest Loop.ogg" id="5_idyyd"]
+[ext_resource type="AudioStream" uid="uid://bdjn84gl8n8jm" path="res://art/dark-souls-you-died-sound-effect.mp3" id="6_g4etq"]
 
 [sub_resource type="Curve2D" id="Curve2D_hmmnb"]
 _data = {
@@ -14,6 +16,14 @@ point_count = 5
 [node name="Main" type="Node"]
 script = ExtResource("1_hf08v")
 mob_scene = ExtResource("2_knmcr")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.921569, 0, 0.184314, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_00ikv")]
 position = Vector2(240, 450)
@@ -36,6 +46,12 @@ curve = SubResource("Curve2D_hmmnb")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
 [node name="HUD" parent="." instance=ExtResource("4_otfsv")]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_idyyd")
+
+[node name="YouDied" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_g4etq")
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
