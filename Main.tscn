@@ -45,6 +45,8 @@ curve = SubResource("Curve2D_hmmnb")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
+[node name="BonusSpawnLocation" type="PathFollow2D" parent="MobPath"]
+
 [node name="HUD" parent="." instance=ExtResource("4_otfsv")]
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
