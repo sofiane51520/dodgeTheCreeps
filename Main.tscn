@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://oqnahblfjnxx"]
+[gd_scene load_steps=10 format=3 uid="uid://oqnahblfjnxx"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_hf08v"]
+[ext_resource type="PackedScene" uid="uid://c5742mcitsdr1" path="res://Point_bonus.tscn" id="2_143ri"]
 [ext_resource type="PackedScene" uid="uid://cxbg480pnp15o" path="res://Mob.tscn" id="2_knmcr"]
 [ext_resource type="PackedScene" uid="uid://cxh1ndgy6w4g4" path="res://Player.tscn" id="3_00ikv"]
 [ext_resource type="PackedScene" uid="uid://orcl5hh50tsw" path="res://HUD.tscn" id="4_otfsv"]
 [ext_resource type="AudioStream" uid="uid://ddrp1y40dbae6" path="res://art/House In a Forest Loop.ogg" id="5_idyyd"]
 [ext_resource type="AudioStream" uid="uid://bdjn84gl8n8jm" path="res://art/dark-souls-you-died-sound-effect.mp3" id="6_g4etq"]
+[ext_resource type="PackedScene" uid="uid://b7hxk5yvso4kn" path="res://Settings.tscn" id="8_h4k8r"]
 
 [sub_resource type="Curve2D" id="Curve2D_hmmnb"]
 _data = {
@@ -15,6 +17,7 @@ point_count = 5
 
 [node name="Main" type="Node"]
 script = ExtResource("1_hf08v")
+point_bonus_scene = ExtResource("2_143ri")
 mob_scene = ExtResource("2_knmcr")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -29,7 +32,7 @@ color = Color(0.921569, 0, 0.184314, 1)
 position = Vector2(240, 450)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -40,23 +43,36 @@ one_shot = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
-[node name="MobPath" type="Path2D" parent="."]
+[node name="GamePerimeter" type="Path2D" parent="."]
 curve = SubResource("Curve2D_hmmnb")
 
-[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+[node name="MobSpawnLocation" type="PathFollow2D" parent="GamePerimeter"]
 
-[node name="BonusSpawnLocation" type="PathFollow2D" parent="MobPath"]
+[node name="BonusSpawnLocation" type="PathFollow2D" parent="GamePerimeter"]
 
 [node name="HUD" parent="." instance=ExtResource("4_otfsv")]
 
-[node name="Music" type="AudioStreamPlayer2D" parent="."]
+[node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_idyyd")
+bus = &"Music"
 
-[node name="YouDied" type="AudioStreamPlayer2D" parent="."]
+[node name="LooseMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_g4etq")
+volume_db = -22.486
+bus = &"Music"
+
+[node name="BonusTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Settings" parent="." instance=ExtResource("8_h4k8r")]
+visible = false
 
 [connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="point_bonus" from="Player" to="." method="_on_player_point_bonus"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="toggle_settings" from="HUD" to="." method="_on_hud_toggle_settings"]
+[connection signal="timeout" from="BonusTimer" to="." method="_on_bonus_timer_timeout"]
+[connection signal="set_game_pause" from="Settings" to="." method="_on_settings_set_game_pause"]

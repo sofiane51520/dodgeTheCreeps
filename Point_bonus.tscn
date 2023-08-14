@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5742mcitsdr1"]
+
+[ext_resource type="Script" path="res://Point_bonus.gd" id="1_8c8oe"]
+[ext_resource type="Texture2D" uid="uid://b27vc70162ogx" path="res://art/pointBonus.png" id="2_o344h"]
+[ext_resource type="AudioStream" uid="uid://pimlpmsfa1an" path="res://art/bonus.mp3" id="3_afyxi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y3xj8"]
+radius = 131.848
+
+[node name="PointBonus" type="RigidBody2D"]
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource("1_8c8oe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.2, 0.2)
+shape = SubResource("CircleShape2D_y3xj8")
+one_way_collision_margin = 10.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_o344h")
+
+[node name="ExpirationTimeout" type="Timer" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+wait_time = 5.0
+
+[node name="BonusSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_afyxi")
+bus = &"Effect"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ExpirationTimeout" to="." method="_on_expiration_timer_timeout"]

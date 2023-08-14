@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # Notifies `Main` node that the button has been pressed
 signal start_game
-
+signal toggle_settings
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,3 +38,7 @@ func _on_start_button_pressed():
 
 func _on_message_timer_timeout():
 	$Message.hide()
+
+
+func _on_settings_button_pressed():
+	toggle_settings.emit()

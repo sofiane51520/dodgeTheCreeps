@@ -1,0 +1,129 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7hxk5yvso4kn"]
+
+[ext_resource type="Script" path="res://Settings.gd" id="1_6qbf2"]
+[ext_resource type="Script" path="res://VolumeSlider.gd" id="2_dhp20"]
+[ext_resource type="FontFile" uid="uid://duxubhyx4lbvm" path="res://fonts/upheavtt.ttf" id="3_lu46m"]
+[ext_resource type="FontFile" uid="uid://c1nsbg2xaf4j5" path="res://fonts/Xolonium-Regular.ttf" id="4_grikd"]
+
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_6qbf2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.227451, 0.227451, 0.227451, 0.827451)
+
+[node name="SettingsLabel" type="Label" parent="."]
+offset_left = 102.0
+offset_top = 51.0
+offset_right = 381.0
+offset_bottom = 117.0
+theme_override_fonts/font = ExtResource("3_lu46m")
+theme_override_font_sizes/font_size = 60
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GlobaVolumeLabel" type="Label" parent="."]
+offset_left = 75.0
+offset_top = 186.0
+offset_right = 405.0
+offset_bottom = 225.0
+theme_override_fonts/font = ExtResource("3_lu46m")
+theme_override_font_sizes/font_size = 40
+text = "Global Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="GlobalVolumeSlider" type="HSlider" parent="."]
+anchors_preset = -1
+anchor_right = 0.281
+offset_left = 131.0
+offset_top = 237.0
+offset_right = 229.12
+offset_bottom = 281.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_dhp20")
+bus_name = "Master"
+metadata/_edit_group_ = true
+
+[node name="MusicVolumeLabel" type="Label" parent="."]
+offset_left = 84.0
+offset_top = 319.0
+offset_right = 414.0
+offset_bottom = 358.0
+theme_override_fonts/font = ExtResource("3_lu46m")
+theme_override_font_sizes/font_size = 40
+text = "Music Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="MusicVolumeSlider" type="HSlider" parent="."]
+anchors_preset = -1
+anchor_right = 0.281
+offset_left = 134.0
+offset_top = 372.0
+offset_right = 232.12
+offset_bottom = 416.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_dhp20")
+bus_name = "Music"
+metadata/_edit_group_ = true
+
+[node name="EffectVolumeLabel" type="Label" parent="."]
+offset_left = 88.0
+offset_top = 441.0
+offset_right = 412.0
+offset_bottom = 480.0
+theme_override_fonts/font = ExtResource("3_lu46m")
+theme_override_font_sizes/font_size = 40
+text = "Effect Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_group_ = true
+
+[node name="EffectVolumeSlider" type="HSlider" parent="."]
+anchors_preset = -1
+anchor_right = 0.281
+offset_left = 128.0
+offset_top = 501.0
+offset_right = 226.12
+offset_bottom = 545.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("2_dhp20")
+bus_name = "Effect"
+metadata/_edit_group_ = true
+
+[node name="CloseSettingsButton" type="Button" parent="."]
+offset_left = 421.0
+offset_top = 12.0
+offset_right = 468.0
+offset_bottom = 53.0
+theme_override_fonts/font = ExtResource("4_grikd")
+theme_override_font_sizes/font_size = 26
+text = "X
+"
+icon_alignment = 1
+
+[connection signal="mouse_exited" from="GlobalVolumeSlider" to="." method="_on_volume_slider_mouse_exited"]
+[connection signal="value_changed" from="GlobalVolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="mouse_exited" from="MusicVolumeSlider" to="." method="_on_volume_slider_mouse_exited"]
+[connection signal="value_changed" from="MusicVolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="mouse_exited" from="EffectVolumeSlider" to="." method="_on_volume_slider_mouse_exited"]
+[connection signal="value_changed" from="EffectVolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="CloseSettingsButton" to="." method="_on_close_settings_button_pressed"]

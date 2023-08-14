@@ -1,14 +1,16 @@
 extends Area2D
 
 signal hit
+signal point_bonus
 
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
-
+var border = 25
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	#hide()
+	screen_size.x -= border
+	screen_size.y -= border
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -29,7 +31,7 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 		
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	position = position.clamp(Vector2(border,border), screen_size)
 
 	if velocity.x != 0:
 		$AnimatedSprite2D.animation = "walk"
@@ -46,10 +48,17 @@ func _process(delta):
 		$AnimatedSprite2D.flip_h = false
 
 func _on_body_entered(body):
-	hide() # Player disappears after being hit.
-	hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	print(body.name)
+	if body.name == "PointBonus":
+		print("BONUS")
+		point_bonus.emit()
+	else:
+		#hide() # Player disappears after being hit.
+		#hit.emit()
+		# Must be deferred as we can't change physics properties on a physics callback.
+		#$CollisionShape2D.set_deferred("disabled", true)
+		print("")
+
 
 func start(pos):
 	position = pos
