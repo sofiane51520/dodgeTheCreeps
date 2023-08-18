@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckt1k7jbcgi7l"]
+
+[sub_resource type="Curve2D" id="Curve2D_vlq8t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="GamePerimeter" type="Path2D"]
+curve = SubResource("Curve2D_vlq8t")

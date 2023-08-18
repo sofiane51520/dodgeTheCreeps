@@ -1,7 +1,7 @@
 extends Area2D
 
 signal hit
-signal point_bonus
+signal point_bonus(bonus_node)
 
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
@@ -48,19 +48,17 @@ func _process(delta):
 		$AnimatedSprite2D.flip_h = false
 
 func _on_body_entered(body):
-	print(body.name)
-	if body.name == "PointBonus":
-		print("BONUS")
-		point_bonus.emit()
-	else:
-		#hide() # Player disappears after being hit.
-		#hit.emit()
+	if "PointBonus" in body.name:
+		point_bonus.emit(body)
+	elif "Mob" in body.name:
+		hide() # Player disappears after being hit.
+		hit.emit()
 		# Must be deferred as we can't change physics properties on a physics callback.
-		#$CollisionShape2D.set_deferred("disabled", true)
-		print("")
+		$CollisionShape2D.set_deferred("disabled", true)
 
 
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+

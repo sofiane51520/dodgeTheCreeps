@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxbg480pnp15o"]
+[gd_scene load_steps=11 format=3 uid="uid://cxbg480pnp15o"]
 
 [ext_resource type="Script" path="res://Mob.gd" id="1_5w1d0"]
 [ext_resource type="Texture2D" uid="uid://b5fo4fqj77l8f" path="res://art/enemyFlyingAlt_1.png" id="2_4qnmi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bsvw77yqfqo0f" path="res://art/enemySwimming_2.png" id="5_ouwdm"]
 [ext_resource type="Texture2D" uid="uid://duwnxh5xn2aos" path="res://art/enemyWalking_1.png" id="6_wnjfp"]
 [ext_resource type="Texture2D" uid="uid://djhk5yiky1lxi" path="res://art/enemyWalking_2.png" id="7_wvcce"]
+[ext_resource type="PackedScene" uid="uid://ckt1k7jbcgi7l" path="res://game_perimeter.tscn" id="8_3vxgm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_56eio"]
 animations = [{
@@ -45,26 +46,30 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnssg"]
-radius = 37.0
-height = 102.0
+radius = 47.5
+height = 132.5
 
 [node name="Mob" type="RigidBody2D"]
-scale = Vector2(0.2, 0.2)
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_5w1d0")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_56eio")
 animation = &"swim"
 frame_progress = 0.956774
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
+scale = Vector2(0.8, 0.8)
 shape = SubResource("CapsuleShape2D_hnssg")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(11, 0)
 scale = Vector2(2.8, 2.5)
+
+[node name="GamePerimeter" parent="." instance=ExtResource("8_3vxgm")]
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="GamePerimeter"]
